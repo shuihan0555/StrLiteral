@@ -16,20 +16,26 @@ class StrLiteral
 		: data{arr}, len{N - 1}, cap{N} {
 		}
 
-		constexpr char operator[](std::size_t i) const
-		{
+		constexpr char operator[](std::size_t i) const {
 			return data[i];
 		}
 	
-		constexpr char At(std::size_t i) const
-		{
+		constexpr char At(std::size_t i) const {
 			return i < len ? data[i] : throw std::out_of_range("");
 		}
 
-		constexpr std::size_t Size() const noexcept { return len; }
-		constexpr std::size_t Cap() const noexcept { return cap; }
-		constexpr operator const char*() const noexcept { return data; }
-		constexpr const char* c_str() const noexcept { return data; }
+		constexpr std::size_t Size() const noexcept { 
+			return len; 
+		}
+		constexpr std::size_t Cap() const noexcept {
+			return cap; 
+		}
+		constexpr operator const char*() const noexcept {
+			return data; 
+		}
+		constexpr const char* c_str() const noexcept {
+			return data; 
+		}
 
 	private:
 		const char* const data;
