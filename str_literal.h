@@ -18,6 +18,11 @@ class StrLiteral
 
 		constexpr char operator[](std::size_t i) const
 		{
+			return data[i];
+		}
+	
+		constexpr char At(std::size_t i) const
+		{
 			return i < len ? data[i] : throw std::out_of_range("");
 		}
 
