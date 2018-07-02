@@ -13,7 +13,7 @@ class StrLiteral
 	public:
 		template<std::size_t N>
 		constexpr StrLiteral(const char(&arr)[N]) noexcept 
-		: data{arr}, len{N - 1}, cap{N} {
+		: s(arrr), data{s.c_str()}, len{N - 1}, cap{N} {
 		}
 
 		constexpr char operator[](std::size_t i) const {
@@ -30,7 +30,12 @@ class StrLiteral
 		constexpr std::size_t Cap() const noexcept {
 			return cap; 
 		}
+	
 		constexpr operator const char*() const noexcept {
+			return data; 
+		}
+		
+		constexpr std::string& C_STR() const noexcept {
 			return data; 
 		}
 		constexpr const char* c_str() const noexcept {
@@ -38,6 +43,7 @@ class StrLiteral
 		}
 
 	private:
+		const std::string s;
 		const char* const data;
 		const std::size_t len;
 		const std::size_t cap;
