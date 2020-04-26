@@ -8,46 +8,50 @@
 #ifndef _STR_LITERAL_H_
 #define _STR_LITERAL_H_
 
-class StrLiteral
-{
-	public:
-		template<std::size_t N>
-		constexpr StrLiteral(const char(&arr)[N]) noexcept 
-		: s(arrr), data{s.c_str()}, len{N - 1}, cap{N} {
-		}
+#include<stdexcept>
+#include<string>
+#include<vector>
 
-		constexpr char operator[](std::size_t i) const {
-			return data[i];
-		}
-	
-		constexpr char At(std::size_t i) const {
-			return i < len ? data[i] : throw std::out_of_range("");
-		}
+class StrLiter {
+    public:
+        template<size_t N>
+            constexpr StrLiter(const char (&arr)[N]) :
+                s(arr),
+                str(s.c_str()),
+                len(N-1) {
+                }
 
-		constexpr std::size_t Size() const noexcept { 
-			return len; 
-		}
-		constexpr std::size_t Cap() const noexcept {
-			return cap; 
-		}
-	
-		constexpr operator const char*() const noexcept {
-			return data; 
-		}
-		
-		constexpr std::string& C_STR() const noexcept {
-			return data; 
-		}
-		constexpr const char* c_str() const noexcept {
-			return data; 
-		}
+        const char operator[](std::size_t n) const {
+            return str[n];
+        }
 
-	private:
-		const std::string s;
-		const char* const data;
-		const std::size_t len;
-		const std::size_t cap;
+        const char at(std::size_t n) const {
+            return n < len ? str[n]: throw std::out_of_range("");;
+        }
+
+        const char* c_str(void) const {
+            return str;
+        }
+
+        const std::string& C_STR(void) const {
+            return s;
+        }
+
+        size_t Length(void) const {
+            return len;
+        }
+
+    private:
+        const std::string s;
+        const char* str;
+        const size_t len;
 };
 
+void Split(const char* in, std::vector<int>& out, const char* format=R"(%d|%n)");
+void Split(const char* in, std::vector<long>& out, const char* format=R"(%ld|%n)");
+void Split(const char* in, std::vector<size_t>& out, const char* format=R"(%zu|%n)");
+void Split(const char* in, std::vector<float>& out, const char* format=R"(%f|%n)");
+void Split(const char* in, std::vector<double>& out, const char* format=R"(%lf|%n)");
+void Split(const char* in, std::vector<std::string>& out, const char* format=R"(%[^|]|%n)");
 
 #endif
